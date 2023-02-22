@@ -51,12 +51,40 @@ jobs:
         with:
           ruby-version: 3.1.1
           bundler-cache: true
-      # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
-      # Add or replace test runners here
-      - name: Run tests
-        run: bin/rails test:system 
+
+      # # Add or replace database setup steps here
+      # - name: Set up database schema
+      #   run: bin/rails db:schema:load
+
+      
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-browser chromium-chromedriver
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+
+      - name: Create and migrate database
+        run: |
+          bundle exec rake db:create
+          bundle exec rake db:migrate
+
+      - name: Set up X Window System
+        uses: jakubstransky/xvfb-action@v1
+      
+      - name: Run RSpec with Selenium
+        env:
+          DISPLAY: ${{ env.XVFB_DISPLAY }}
+        run: bin/rails test:system
+
+
+
+
+
+      # # Add or replace test runners here
+      # - name: Run tests      
+      #   run: bin/rails test:system 
 
       # Add Code Coverage
       - name: Create Coverage Artifact
