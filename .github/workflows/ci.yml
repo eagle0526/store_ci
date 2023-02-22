@@ -62,7 +62,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y chromium-browser chromium-chromedriver
-          gem install bundler
+          gem install bundlerchromedriver --version
           bundle install --jobs 4 --retry 3
 
       - name: Create and migrate database
