@@ -73,10 +73,14 @@ jobs:
       # - name: Set up X Window System
       #   uses: jakubstransky/xvfb-action@v1
       
-      - name: Run RSpec with Selenium
+      # - name: Run RSpec with Selenium
+      #   env:
+      #     DISPLAY: ${{ env.XVFB_DISPLAY }}
+      #   run: bin/rails test:system
+      - name: Run Selenium tests
         env:
-          DISPLAY: ${{ env.XVFB_DISPLAY }}
-        run: bin/rails test:system
+          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub/
+        run: bundle exec rspec spec/integration/selenium_spec.rb
 
 
 
@@ -87,8 +91,8 @@ jobs:
       #   run: bin/rails test:system 
 
       # Add Code Coverage
-      - name: Create Coverage Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: coverage/
+      # - name: Create Coverage Artifact
+      #   uses: actions/upload-artifact@v2
+      #   with:
+      #     name: code-coverage
+      #     path: coverage/
