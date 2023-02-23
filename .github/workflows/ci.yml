@@ -80,7 +80,7 @@ jobs:
       - name: Run Selenium tests
         env:
           SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub/
-        run: bundle exec rspec
+        run: bin/rails test:system
 
 
 
