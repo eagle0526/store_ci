@@ -108,21 +108,44 @@ on:
       - main
 
 jobs:
-  build:
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:12.7
+        env:
+          POSTGRES_USER: myapp
+          POSTGRES_DB: myapp_test
+          POSTGRES_PASSWORD: ""
+        ports: ["5432:5432"]
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Ruby
+      - name: Setup Ruby and install gems
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: 3.1.1
+          bundler-cache: true
 
-      - name: Install dependencies
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: yarn
+
+      - name: Install packages
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+          yarn install --pure-lockfile
+
+      - name: Setup test database
+        env:
+          RAILS_ENV: test
+          PGHOST: localhost
+          PGUSER: myapp
+        run: |
+          bin/rails db:setup
 
       - name: Run tests
-        run: bundle exec rspec
+        run: bin/rspec
