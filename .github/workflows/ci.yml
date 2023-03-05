@@ -124,10 +124,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Setup Ruby and install gems
-      #   uses: ruby/setup-ruby@v1
-      #   with:
-      #     bundler-cache: true
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
         with:
@@ -144,13 +140,15 @@ jobs:
         run: |
           yarn install --pure-lockfile
 
-      - name: Setup test database
-        env:
-          RAILS_ENV: test
-          PGHOST: localhost
-          PGUSER: myapp
-        run: |
-          bin/rails db:setup
+      # - name: Setup test database
+      #   env:
+      #     RAILS_ENV: test
+      #     PGHOST: localhost
+      #     PGUSER: myapp
+      #   run: |
+      #     bin/rails db:setup
+      - name: Set up database schema
+        run: bin/rails db:schema:load
 
       - name: Run tests
         run: bin/rspec
