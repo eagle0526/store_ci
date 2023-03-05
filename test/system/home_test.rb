@@ -4,6 +4,10 @@ require 'test_helper'
 
 class HomeTest < ApplicationSystemTestCase  
 
+  setup do
+    Capybara.current_driver = Capybara.javascript_driver # :selenium by default
+  end
+
   test "短連結功能測試" do
     visit root_path
 
