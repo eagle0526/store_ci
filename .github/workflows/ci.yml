@@ -97,59 +97,40 @@
 #           path: coverage/
 
 
-name: Rails CI/CD
-
+name: "Ruby on Rails CI"
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
   pull_request:
-    branches:
-      - main
-
+    branches: [ "main" ]
 jobs:
-  tests:
-    name: Tests
+  test:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: postgres:12.7
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
         env:
-          POSTGRES_USER: myapp
-          POSTGRES_DB: myapp_test
-          POSTGRES_PASSWORD: ""
-        ports: ["5432:5432"]
-
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-
+        uses: actions/checkout@v3
+      # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@ee2113536afb7f793eed4ce60e8d3b26db912da4 # v1.127.0
         with:
           ruby-version: 3.1.1
           bundler-cache: true
-
-      - name: Setup Node
-        uses: actions/setup-node@v2
-        with:
-          node-version: 16
-          cache: yarn
-
-      - name: Install packages
-        run: |
-          yarn install --pure-lockfile
-
-      # - name: Setup test database
-      #   env:
-      #     RAILS_ENV: test
-      #     PGHOST: localhost
-      #     PGUSER: myapp
-      #   run: |
-      #     bin/rails db:setup
+      # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
-
+      # Add or replace test runners here
       - name: Run tests
         run: bin/rspec
 
