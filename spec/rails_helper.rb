@@ -11,7 +11,12 @@ require 'webdrivers/chromedriver'
 
 # require 'shoulda/matchers'
 
-Capybara.default_driver = :selenium_chrome_headless
+
+Webdrivers.cache_time = 1
+Webdrivers::Chromedriver.required_version = '74.0.3729.6'
+Capybara.default_driver = :selenium_chrome
+# Capybara.default_driver = :selenium_chrome_headless
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
