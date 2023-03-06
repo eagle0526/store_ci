@@ -80,8 +80,8 @@ jobs:
       #     DISPLAY: ${{ env.XVFB_DISPLAY }}
       #   run: bin/rails test:system
       - name: Run Selenium tests
-        env:
-          SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub/
+        # env:
+        #   SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub/
         run: bundle exec rspec
 
 
