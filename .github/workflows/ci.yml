@@ -176,8 +176,6 @@ jobs:
       - name: Run yarn commands
         run: |
           yarn install
-          yarn build
-          yarn build:css
       - name: Setup Database
         env:
           RAILS_ENV: test
