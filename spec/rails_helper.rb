@@ -11,11 +11,41 @@ require 'webdrivers/chromedriver'
 
 # require 'shoulda/matchers'
 
-
-Webdrivers.cache_time = 1
-Webdrivers::Chromedriver.required_version = '74.0.3729.6'
-Capybara.default_driver = :selenium_chrome
+# Capybara.default_driver = :selenium_chrome
 # Capybara.default_driver = :selenium_chrome_headless
+
+
+
+require "selenium/webdriver"
+# require "webdrivers/chromedriver"
+
+Webdrivers::Chromedriver.required_version = "74.0.3729.6"
+
+Capybara.server = :puma, { Silent: true }
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: {
+      args: %w(no-sandbox headless disable-gpu window-size=1280,800),
+    },
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :headless_chrome
+
+
+
+
+
+
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
