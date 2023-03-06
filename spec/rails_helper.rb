@@ -8,6 +8,7 @@ require 'rspec/rails'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'webdrivers/chromedriver'
+require 'webpacker/rspec'
 # require 'shoulda/matchers'
 
 Capybara.default_driver = :selenium_chrome_headless
