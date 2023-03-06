@@ -27,6 +27,11 @@ jobs:
             ${{ runner.os }}-yarn-lock-
       - name: Yarn Install
         run: yarn install
+
+      # 這一行
+      - name: webpacker install
+        run: rails webpacker:install
+      
   test:
     runs-on: ubuntu-latest
     services:
