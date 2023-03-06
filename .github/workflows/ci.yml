@@ -133,7 +133,7 @@ jobs:
       # Add or replace test runners here
       - name: Run tests
         # run: bin/rails test:system
-        run: rspec ./spec/features/user_spec.rb
+        run: bundle exec rspec
 
 
 
