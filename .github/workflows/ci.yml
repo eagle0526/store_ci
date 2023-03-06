@@ -68,9 +68,9 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
 
-      # compile assets
-      - name: webpacker compile assets
-          run: bundle exec rails webpacker:compile          
+      # # compile assets
+      # - name: webpacker compile assets
+      #     run: bundle exec rails webpacker:compile
 
       # - name: Set up X Window System
       #   uses: jakubstransky/xvfb-action@v1
