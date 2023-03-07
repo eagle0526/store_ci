@@ -76,10 +76,12 @@ jobs:
       - name: Run Selenium tests
         run: bundle exec rspec
       
-      # Minimum configuration
-      - uses: joshmfrankel/simplecov-check-action@main
+      # Add Code Coverage
+      - name: Create Coverage Artifact
+        uses: actions/upload-artifact@v2
         with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}      
+          name: code-coverage
+          path: coverage/    
 
 
 
