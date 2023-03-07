@@ -73,21 +73,16 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
 
-      # # compile assets
-      # - name: webpacker compile assets
-      #     run: bundle exec rails webpacker:compile
-
-      # - name: Set up X Window System
-      #   uses: jakubstransky/xvfb-action@v1
-      
-      # - name: Run RSpec with Selenium
-      #   env:
-      #     DISPLAY: ${{ env.XVFB_DISPLAY }}
-      #   run: bin/rails test:system
       - name: Run Selenium tests
-        # env:
-        #   SELENIUM_DRIVER_URL: http://localhost:4444/wd/hub/
         run: bundle exec rspec
+
+      - name: Generate coverage report
+      env:
+        CI: true
+      run: |
+        bundle exec rspec spec/ --format html --out coverage/index.html
+        gem install simplecov
+        simplecov
 
 
 
