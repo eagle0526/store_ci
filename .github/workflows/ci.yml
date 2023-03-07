@@ -81,8 +81,6 @@ jobs:
         CI: true
       run: |
         bundle exec rspec spec/ --format html --out coverage/index.html
-        gem install simplecov
-        simplecov
 
 
 
