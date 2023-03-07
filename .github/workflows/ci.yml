@@ -75,7 +75,11 @@ jobs:
 
       - name: Run Selenium tests
         run: bundle exec rspec
-
+      
+      # Minimum configuration
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}      
 
 
 
