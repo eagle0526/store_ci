@@ -73,6 +73,10 @@ jobs:
           bundle exec rake db:create
           bundle exec rake db:migrate
 
+      # compile assets
+      - name: run rake assets:precompile          
+        run: RAILS_ENV=test bundle exec rake assets:precompile
+
       - name: Run Selenium tests
         run: bundle exec rspec
       
