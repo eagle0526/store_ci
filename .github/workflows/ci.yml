@@ -56,6 +56,9 @@ jobs:
       - name: Yarn Install
         run: yarn install
 
+      - name: webpacker
+        run: bundle exec rails webpacker:compile
+
       # # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load      
