@@ -5,6 +5,50 @@ require_relative '../config/environment'
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'rspec/rails'
+require 'capybara/rails'
+require 'capybara/rspec'
+require 'webdrivers/chromedriver'
+
+# require 'shoulda/matchers'
+
+# Capybara.default_driver = :selenium_chrome
+# Capybara.default_driver = :selenium_chrome_headless
+
+
+
+require "selenium/webdriver"
+# require "webdrivers/chromedriver"
+
+Webdrivers::Chromedriver.required_version = "74.0.3729.6"
+
+Capybara.server = :puma, { Silent: true }
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.register_driver :headless_chrome do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    chromeOptions: {
+      args: %w(no-sandbox headless disable-gpu window-size=1280,800),
+    },
+  )
+
+  Capybara::Selenium::Driver.new app,
+    browser: :chrome,
+    desired_capabilities: capabilities
+end
+
+Capybara.javascript_driver = :headless_chrome
+
+
+
+
+
+
+
+
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
