@@ -407,6 +407,31 @@
           null
         ]
       },
+      "/Users/yee0526/Desktop/5xruby/CI測試/StoreCi/spec/features/user_spec.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "/Users/yee0526/Desktop/5xruby/CI測試/StoreCi/spec/models/user_spec.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
       "/Users/yee0526/Desktop/5xruby/CI測試/StoreCi/app/controllers/home_controller.rb": {
         "lines": [
           1,
@@ -420,8 +445,16 @@
           1,
           null
         ]
+      },
+      "/Users/yee0526/Desktop/5xruby/CI測試/StoreCi/app/controllers/users_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1678165393
+    "timestamp": 1678383561
   }
 }
